@@ -1,0 +1,33 @@
+# Build output and reports
+target/
+test-output/
+screenshots/
+*.log
+logs/
+
+# Eclipse / IDE temporary files
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+.vscode/
+bin/
+
+# Browser sessions / profiles (never commit logged-in sessions)
+user-data/
+edge-profile/
+*.crx
+
+# Secrets and local overrides
+.env
+*.env
+config.local.properties
+secrets.properties
+
+# Runtime artefacts
+stop-monitor.flag
+
+# OS files
+.DS_Store
+Thumbs.db

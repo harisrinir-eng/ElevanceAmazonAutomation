@@ -1,0 +1,36 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- The one authoritative suite. Runs offline utility tests first, then Tasks 1-6 in order.
+     Task 6 here only validates configuration and reads ONE price - the monitoring loop is a
+     separate program (elevanceskills.intern.PriceMonitor) and is never started by the suite. -->
+<suite name="ElevanceAmazonAutomation" verbose="1">
+
+    <test name="Utility unit tests (offline)">
+        <classes>
+            <class name="elevanceskills.intern.TimeValidatorUnitTest"/>
+            <class name="elevanceskills.intern.ValidationUtilUnitTest"/>
+            <class name="elevanceskills.intern.PriceUtilUnitTest"/>
+            <class name="elevanceskills.intern.PriceAlertTrackerUnitTest"/>
+            <class name="elevanceskills.intern.SmtpSettingsUnitTest"/>
+            <class name="elevanceskills.intern.MonitorSettingsUnitTest"/>
+        </classes>
+    </test>
+
+    <test name="Task 1 - Product selection (15:00-18:00 IST)">
+        <classes><class name="elevanceskills.intern.Test1"/></classes>
+    </test>
+    <test name="Task 2 - Search and filter (15:00-18:00 IST)">
+        <classes><class name="elevanceskills.intern.Test2"/></classes>
+    </test>
+    <test name="Task 3 - Cart, payment, order confirmation (18:00-19:00 IST)">
+        <classes><class name="elevanceskills.intern.Test3"/></classes>
+    </test>
+    <test name="Task 4 - Login and profile name (12:00-15:00 IST)">
+        <classes><class name="elevanceskills.intern.Test4"/></classes>
+    </test>
+    <test name="Task 5 - Multi-product cart and username (18:00-19:00 IST)">
+        <classes><class name="elevanceskills.intern.Test5"/></classes>
+    </test>
+    <test name="Task 6 - Price monitor checks (no time window)">
+        <classes><class name="elevanceskills.intern.Test6"/></classes>
+    </test>
+</suite>
