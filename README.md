@@ -1,58 +1,185 @@
 # ElevanceAmazonAutomation
 ### Amazon.in Web Automation Using Java, Selenium and TestNG
 
-## Project Overview
+## 1. Project Overview
 
-This project was developed as part of my Elevance Skills internship. The objective was to automate six assigned tasks on Amazon.in using Java and Selenium WebDriver.
+This project demonstrates the use of browser automation to perform predefined e-commerce workflows and validate application behaviour against specified conditions.
 
-I used Maven to manage the project and TestNG to organize and execute the test cases. The automation reads information directly from the browser, including product titles, prices, ratings, profile details and shopping cart totals.
+The automation interacts with Amazon.in through Selenium WebDriver. It reads relevant information from the browser, applies validation rules, records execution results, and handles scenarios where the expected conditions are not satisfied.
 
-During development, I configured the project, integrated the automation classes, executed the test cases, analysed execution results and worked on resolving browser, configuration and SMTP-related issues.
+The six tasks include both positive and negative test scenarios. Negative scenarios are included to verify that the automation identifies invalid or unmet conditions correctly rather than treating every search result as a successful match.
 
-## 1. Internship Tasks
+## 2. Internship Details
 
-The project covers the following six assigned tasks.
+- **Organization:** Elevance Skills
+- **Project:** Amazon Website Automation
+- **Project Type:** Web Automation Testing
+- **Website:** Amazon India
+- **Programming Language:** Java
+- **Development Environment:** Eclipse IDE
 
-| Task | Automation class | Description |
-|---|---|---|
-| Task 1 | `Test1` | Search for and validate a suitable non-electronic product. |
-| Task 2 | `Test2` | Search for products and verify brand, price and rating conditions. |
-| Task 3 | `Test3` | Add a product to the cart, validate the amount and demonstrate a mock checkout. |
-| Task 4 | `Test4` | Log in to Amazon and validate the profile name against specified character restrictions. |
-| Task 5 | `Test5` | Add multiple products, verify the cart total and validate a ten-character username. |
-| Task 6 | `Test6`, `PriceMonitor` | Retrieve product prices, monitor changes and send an email notification when the configured threshold is crossed. |
+## 3. Technologies Used
 
-### Task execution time restrictions
-
-Tasks 1–5 have specified execution windows in Indian Standard Time (IST).
-
-| Task | Permitted time |
+| Technology | Purpose |
 |---|---|
-| Task 1 | 15:00–18:00 |
-| Task 2 | 15:00–18:00 |
-| Task 3 | 18:00–19:00 |
-| Task 4 | 12:00–15:00 |
-| Task 5 | 18:00–19:00 |
-| Task 6 | No fixed time window |
+| Java 21 | Programming language |
+| Selenium WebDriver 4.27.0 | Browser automation |
+| Maven | Project and dependency management |
+| TestNG 7.10.2 | Test execution and reporting |
+| Jakarta Mail API | Email functionality |
+| Angus Mail | SMTP email communication |
+| Google Chrome | Browser used for automation |
+| Brevo SMTP | Email delivery service |
+| Git and GitHub | Version control and project hosting |
 
-The application checks the permitted time before opening the browser. A test executed outside its permitted window is reported as skipped rather than passed.
+## 4. Project Objectives
 
-## 2. Technology Stack
+- Automate predefined e-commerce workflows on Amazon.in.
+- Identify products based on specified search and filtering conditions.
+- Validate product details, prices, ratings, and cart information.
+- Perform positive and negative validation scenarios.
+- Automate profile and checkout-related checks.
+- Implement product-price monitoring with configurable thresholds.
+- Generate email notifications when the configured price condition is met.
+- Organize the automation using reusable page objects and utility classes.
 
-- Java Development Kit 21
-- Selenium WebDriver 4.27.0
-- Maven
-- TestNG 7.10.2
-- Jakarta Mail
-- Eclipse Angus Mail
-- Google Chrome
-- Eclipse IDE
+## 5. Tasks Implemented
 
-Selenium Manager is used to manage the compatible ChromeDriver installation.
+### Task 1 – Product Search and Selection
 
-## 3. Project Structure
+**Objective:** Automate the search and selection of a steel water bottle based on the assigned conditions.
 
-The project follows a Maven directory structure.
+**Implementation:**
+- Open Amazon.in.
+- Search for steel water bottles.
+- Read product titles and prices from the search results.
+- Apply the assigned product-title restrictions.
+- Identify and validate a suitable product.
+- Capture relevant product information.
+
+**Result:** The product search, filtering, and validation workflow was executed successfully.
+
+### Task 2 – Product Filtering Based on Brand, Price, and Rating
+
+**Objective:** Search for running shoes satisfying the following conditions:
+
+- Brand name beginning with the letter C.
+- Product price greater than ₹2,000.
+- Customer rating greater than 4.0.
+
+**Implementation:**
+- Search for running shoes.
+- Read product information from the available results.
+- Validate the brand, price, and rating conditions.
+- Check whether a product satisfies all the specified requirements.
+- Handle the scenario where no qualifying product is available.
+
+**Result:** The filtering and validation workflow was executed. The automation correctly handled the negative test scenario when no product satisfying all the specified conditions was found during execution.
+
+### Task 3 – Cart Validation and Checkout Boundary
+
+**Objective:** Validate product selection and cart value against the assigned minimum amount.
+
+**Implementation:**
+- Select a suitable product.
+- Add the product to the shopping cart.
+- Retrieve the cart information.
+- Validate that the cart value exceeds ₹500.
+- Navigate to the checkout boundary.
+- Use a mock checkout page for controlled checkout confirmation testing.
+
+**Result:** Product addition, cart-value validation, and checkout-boundary testing were executed successfully. The mock checkout flow was used for testing; no real Amazon order or payment was placed.
+
+### Task 4 – Amazon Profile Name Validation
+
+**Objective:** Validate the Amazon profile name against the assigned character restrictions.
+
+The profile name must not contain the following characters:
+
+`A, C, G, I, L, K`
+
+**Implementation:**
+- Access the Amazon account profile.
+- Retrieve the displayed profile name.
+- Validate the name against the restricted-character list.
+- Identify whether any prohibited character is present.
+- Report the validation result.
+
+**Result:** The profile validation workflow was executed successfully. The negative test scenario was verified because the actual profile name contained restricted characters. The automation correctly detected the condition and reported the validation result.
+
+### Task 5 – Shopping Cart and Username Validation
+
+**Objective:** Validate the shopping cart total and username against the assigned conditions.
+
+**Conditions:**
+- Cart total greater than ₹2,000.
+- Username containing exactly 10 alphanumeric characters.
+- No special characters in the username.
+
+**Implementation:**
+- Select the required products.
+- Add the products to the cart.
+- Retrieve and validate the cart total.
+- Validate the username length.
+- Check that the username contains only alphanumeric characters.
+
+**Execution values:**
+- Cart total: ₹7,246
+- Username: `Intern2026`
+- Username length: 10 characters
+
+**Result:** The cart-value and username-validation conditions were satisfied successfully.
+
+### Task 6 – Product Price Monitoring and Email Notification
+
+**Objective:** Implement an automated system that monitors a product's price and sends an email notification when the configured price condition is satisfied.
+
+**Implementation:**
+- Configure the Amazon product URL.
+- Retrieve the current product price using Selenium.
+- Compare the retrieved price with the configured threshold.
+- Repeat price checking at the configured polling interval.
+- Track notification status to avoid repeated alerts for an unchanged price.
+- Send an email notification through Brevo SMTP when the alert condition is met.
+- Load SMTP credentials through environment variables rather than storing them in the source code.
+- Support controlled termination of the monitoring process through the configured stop-file mechanism.
+
+**Main configuration parameters:**
+
+| Parameter | Description |
+|---|---|
+| `task6.productUrl` | Amazon product URL |
+| `task6.priceThreshold` | Configured price threshold |
+| `task6.pollIntervalSeconds` | Time between monitoring attempts |
+| `task6.stopFile` | File used to stop the monitoring process |
+| `task6.headless` | Controls headless browser execution |
+
+**Email configuration:**
+
+The following environment variables must be configured before running the standalone monitoring process:
+
+```text
+SMTP_HOST
+SMTP_PORT
+SMTP_USERNAME
+SMTP_PASSWORD
+SMTP_FROM
+SMTP_TO
+```
+
+These values are supplied through the execution environment and are not stored in the repository.
+
+**Testing performed:**
+- Monitoring configuration validation.
+- SMTP environment configuration validation.
+- Product-price retrieval test.
+- Email delivery test through Brevo SMTP.
+
+The TestNG verification suite completed with **4 tests passed, 0 failures, and 0 skipped**.
+
+**Result:** The price-monitoring and email-notification components were implemented and their individual verification tests were executed successfully. The standalone monitoring process requires the SMTP environment variables to be configured in its launch configuration before execution.
+
+## 6. Project Structure
 
 ```text
 ElevanceAmazonAutomation/
@@ -64,313 +191,190 @@ ElevanceAmazonAutomation/
 ├── .gitignore
 │
 └── src/
+    │
     ├── main/
     │   └── java/
-    │       └── elevanceskills/intern/
-    │           ├── BasePage.java
-    │           ├── AmazonHomePage.java
-    │           ├── SearchResultsPage.java
-    │           ├── ProductPage.java
-    │           ├── CartPage.java
-    │           ├── LoginPage.java
-    │           ├── AccountPage.java
-    │           ├── BlockedException.java
-    │           ├── MonitorSettings.java
-    │           ├── PriceMonitor.java
-    │           │
-    │           └── utils/
-    │               ├── BrowserFactory.java
-    │               ├── ConfigUtil.java
-    │               ├── EmailUtil.java
-    │               ├── PriceUtil.java
-    │               ├── PriceAlertTracker.java
-    │               ├── ScreenshotUtil.java
-    │               ├── TimeValidator.java
-    │               └── ValidationUtil.java
+    │       └── elevanceskills/
+    │           └── intern/
+    │               ├── BasePage.java
+    │               ├── AmazonHomePage.java
+    │               ├── SearchResultsPage.java
+    │               ├── ProductPage.java
+    │               ├── CartPage.java
+    │               ├── LoginPage.java
+    │               ├── AccountPage.java
+    │               ├── BlockedException.java
+    │               ├── MonitorSettings.java
+    │               ├── PriceMonitor.java
+    │               │
+    │               └── utils/
+    │                   ├── BrowserFactory.java
+    │                   ├── ConfigUtil.java
+    │                   ├── EmailUtil.java
+    │                   ├── PriceUtil.java
+    │                   ├── PriceAlertTracker.java
+    │                   ├── ScreenshotUtil.java
+    │                   ├── TimeValidator.java
+    │                   └── ValidationUtil.java
     │
     └── test/
         ├── java/
-        │   └── elevanceskills/intern/
-        │       ├── BaseTest.java
-        │       ├── Test1.java
-        │       ├── Test2.java
-        │       ├── Test3.java
-        │       ├── Test4.java
-        │       ├── Test5.java
-        │       ├── Test6.java
-        │       └── unit test classes
+        │   └── elevanceskills/
+        │       └── intern/
+        │           ├── BaseTest.java
+        │           ├── Test1.java
+        │           ├── Test2.java
+        │           ├── Test3.java
+        │           ├── Test4.java
+        │           ├── Test5.java
+        │           ├── Test6.java
+        │           └── Supporting test classes
         │
         └── resources/
             └── mock-checkout/
                 └── checkout.html
 ```
 
-The exact package contents should match the source files included in the repository.
+## 7. Prerequisites
 
-## 4. Implementation Details
-
-### Task 1 – Product Selection
-
-The automation searches Amazon.in using a configurable product keyword.
-
-It checks the product title against the assigned restrictions, excludes electronic products and opens a qualifying product page for validation.
-
-The product title and displayed price are obtained from the browser.
-
-**Execution result:** The assigned product-selection test was successfully executed.
-
-### Task 2 – Product Search and Filtering
-
-The automation searches for running shoes and checks the following conditions:
-
-- Brand begins with the letter C.
-- Product price is greater than ₹2,000.
-- Customer rating is greater than 4.0.
-
-The conditions are checked using product information retrieved from Amazon.
-
-**Execution result:** The search was performed, but no product satisfying all the required conditions was identified during the execution. The task's qualifying-product condition was therefore not achieved.
-
-### Task 3 – Cart and Checkout Validation
-
-The automation searches for a backpack, adds a suitable product to the cart and checks that its price exceeds ₹500.
-
-For safety, the project does not place a real Amazon order or enter payment-card or banking information.
-
-The live Amazon workflow is stopped before an actual payment or order is submitted. A separate local checkout page demonstrates the payment and confirmation flow using a clearly labelled mock transaction.
-
-Mock confirmation identifiers are prefixed with `MOCK-`.
-
-**Execution result:** Product selection and cart validation were completed. Checkout confirmation was demonstrated through the mock checkout, not through a real Amazon order.
-
-### Task 4 – Login and Profile Validation
-
-This task checks the Amazon account profile name against the following restriction:
-
-The profile name must not contain A, C, G, I, L or K, irrespective of letter case.
-
-The automation supports manual intervention for CAPTCHA, OTP and other account-verification steps.
-
-**Execution result:** The actual account profile name contained restricted characters. The validation correctly identified the condition as unsatisfied. The required profile-name condition was not achieved.
-
-### Task 5 – Multiple Products and Cart Total
-
-This task searches for multiple products, adds qualifying items to the shopping cart and checks the combined cart value.
-
-The configured requirements include:
-
-- At least two products.
-- Cart total greater than ₹2,000.
-- Username containing exactly ten alphanumeric characters.
-
-The username validation uses the pattern:
-
-```regex
-^[A-Za-z0-9]{10}$
-```
-
-**Execution result:** The multi-product cart validation and username validation were successfully executed. The observed cart total was ₹7,246, exceeding the required amount.
-
-### Task 6 – Product Price Monitoring and Email Notification
-
-This task implements a standalone price-monitoring application using Selenium WebDriver and Jakarta Mail.
-
-The monitoring functionality is implemented in `PriceMonitor.java`.
-
-The application:
-
-1. Reads the configured Amazon product URL.
-2. Opens the product page.
-3. Retrieves the displayed price.
-4. Compares the price with the configured threshold.
-5. Sends an email alert when the price satisfies the threshold condition.
-6. Continues checking at the configured polling interval.
-7. Avoids sending repeated notifications for an unchanged notified price.
-8. Supports stopping the monitoring process using Ctrl+C or a stop file.
-
-The notification is sent through Brevo SMTP.
-
-SMTP credentials are configured through environment variables rather than being stored in the source code.
-
-**Execution results so far:**
-
-- Monitor configuration validation: passed.
-- SMTP environment configuration validation: passed.
-- Amazon product price retrieval: passed.
-- Brevo test email submission: passed.
-- Standalone continuous monitoring and automatic threshold-triggered email: implementation available, but final end-to-end execution remains to be verified.
-
-## 5. Configuration
-
-The project uses `config.properties` to store non-sensitive settings such as:
-
-- Amazon product URL.
-- Product search keywords.
-- Price and rating conditions.
-- Browser settings.
-- Task execution parameters.
-- Price-monitoring threshold.
-- Monitoring interval.
-
-SMTP credentials are supplied through environment variables.
-
-| Environment variable | Purpose |
-|---|---|
-| `AMAZON_EMAIL` | Optional Amazon login email |
-| `AMAZON_PASSWORD` | Optional Amazon login password |
-| `SMTP_HOST` | SMTP server hostname |
-| `SMTP_PORT` | SMTP server port |
-| `SMTP_USERNAME` | SMTP authentication username |
-| `SMTP_PASSWORD` | SMTP authentication credential |
-| `SMTP_FROM` | Verified sender address |
-| `SMTP_TO` | Notification recipient |
-
-No SMTP passwords or authentication keys should be committed to GitHub.
-
-For Task 6, update the product URL and threshold in `config.properties` before starting the monitor.
-
-## 6. Setting Up the Project
-
-### Prerequisites
+Install the following before running the project:
 
 - JDK 21
-- Maven 3.9 or later
+- Eclipse IDE
+- Apache Maven
 - Google Chrome
-- Eclipse IDE for Java Developers
-- Internet connection
+- Git (optional, for repository management)
 
-Verify Java and Maven installations:
+Verify Java and Maven installation:
 
 ```bash
 java -version
-mvn -v
+mvn -version
 ```
 
-### Importing into Eclipse
+## 8. Project Setup
 
-1. Open Eclipse.
-2. Select File → Import.
-3. Choose Maven → Existing Maven Projects.
-4. Select the project directory.
-5. Finish the import.
-6. Right-click the project and select Maven → Update Project.
-7. Confirm that the Java compiler uses JDK 21.
-
-## 7. Running the Application
-
-Run the commands from the project root directory.
-
-### Run utility unit tests
+**Step 1 – Clone the repository**
 
 ```bash
-mvn test -Dtest="*UnitTest"
+git clone <YOUR_GITHUB_REPOSITORY_URL>
 ```
 
-### Run the complete TestNG suite
+**Step 2 – Open the project**
+
+Import the cloned folder into Eclipse as an existing Maven project.
+
+**Step 3 – Update Maven dependencies**
+
+Run:
 
 ```bash
-mvn test
+mvn clean install
 ```
 
-### Run an individual task
+**Step 4 – Review configuration**
+
+Open `config.properties` and review the browser, waiting-time, task-specific, and monitoring settings.
+
+Do not add SMTP passwords or other private credentials to this file.
+
+## 9. Running the Test Suite
+
+To execute the TestNG test suite:
 
 ```bash
-mvn test -Dtest=Test1
+mvn clean test
 ```
 
-Replace `Test1` with `Test2`, `Test3`, `Test4`, `Test5` or `Test6` as required.
+To execute the TestNG suite using the configured XML file:
 
-### Start the Task 6 price monitor
+```bash
+mvn test -DsuiteXmlFile=testng.xml
+```
+
+The tests cover the six assigned automation workflows and their corresponding validation scenarios.
+
+## 10. Running the Price Monitoring Application
+
+Task 6 can also be started as a standalone Maven application.
+
+First, configure the six SMTP environment variables in the launch environment.
+
+Then execute:
 
 ```bash
 mvn compile exec:java
 ```
 
-### Stop the monitor
+The application will:
 
-Press Ctrl+C in the console or create the configured stop file in the project root directory.
+1. Load the monitoring configuration.
+2. Initialize the browser.
+3. Open the configured product page.
+4. Retrieve the product price.
+5. Compare the price against the configured threshold.
+6. Send an email notification when the alert condition is met.
+7. Continue monitoring at the configured interval.
 
-The normal TestNG suite performs the Task 6 configuration, email and price-retrieval checks. The standalone Maven command starts the continuous monitoring process.
-
-## 8. Safety and Validation
-
-The automation is designed to interact with Amazon using the visible browser interface.
-
-- CAPTCHA and OTP challenges are not bypassed.
-- Manual intervention is supported where necessary.
-- No real payment is submitted.
-- No actual Amazon order is placed.
-- Mock checkout results are clearly distinguished from real transactions.
-- Prices, ratings and other displayed values are obtained from the browser rather than fabricated.
-- Credentials are kept outside the source repository.
-
-## 9. Reports and Screenshots
-
-TestNG and Maven generate execution reports under:
+To stop the monitoring process, create the configured stop file:
 
 ```text
-target/surefire-reports/
+stop-monitor.flag
 ```
 
-Failure and blocked-operation screenshots are stored under:
+The monitoring process checks for this file and exits when the stop condition is detected.
 
-```text
-target/screenshots/
-```
+## 11. Configuration and Security
 
-These generated files are excluded from GitHub using `.gitignore`.
+The project uses `config.properties` for general automation settings.
 
-## 10. Troubleshooting
+SMTP credentials are read from environment variables.
 
-**Test skipped due to execution time**
+For repository security:
 
-Run the task within its configured IST window.
+- Do not upload SMTP passwords.
+- Do not commit personal credentials.
+- Do not upload local environment files containing secrets.
+- Keep generated build files and temporary files out of the repository.
+- Use the `.gitignore` file to exclude unnecessary local files.
 
-**Amazon CAPTCHA or verification challenge**
+## 12. Testing and Validation
 
-Use the visible browser and complete the verification manually. The automation does not attempt to bypass these checks.
+The project includes both positive and negative validation scenarios.
 
-**ChromeDriver or browser compatibility issue**
+Positive testing verifies that the automation can identify products, retrieve information, validate cart values, and check username conditions.
 
-Update Google Chrome and check the Selenium Manager driver resolution.
+Negative testing verifies that the automation correctly identifies conditions that do not satisfy the assigned requirements, such as an unavailable qualifying product or restricted characters in a profile name.
 
-**Product price unavailable**
+Task 6 also includes configuration, price retrieval, and email component tests.
 
-Amazon may change its page structure or temporarily restrict access. Check the browser page and the execution log.
+The latest recorded TestNG verification for Task 6:
 
-**SMTP authentication failure**
+| Test result | Count |
+|---|---:|
+| Passed | 4 |
+| Failed | 0 |
+| Skipped | 0 |
 
-Verify the Brevo SMTP credentials and authorized IP settings. Confirm that all six SMTP environment variables are available to the process launching the monitor.
+## 13. Project Outcome
 
-**Configuration file not found**
+The ElevanceAmazonAutomation project covers all six assigned internship tasks through Selenium-based browser automation and supporting Java utilities.
 
-Run Maven from the project root directory and check the configuration loader's expected file location.
+The implementation demonstrates:
 
-## 11. Project Submission
+- Automated browser interaction.
+- Product search and filtering.
+- Dynamic web-element handling.
+- Price and rating validation.
+- Shopping-cart verification.
+- Positive and negative test-case execution.
+- Profile and username validation.
+- Checkout-boundary testing.
+- Automated price monitoring.
+- SMTP-based email notification.
+- Maven and TestNG test execution.
 
-The GitHub repository contains the Maven project source code, configuration template, TestNG suite and documentation.
-
-Before pushing the project, check that:
-
-- All required source files are included.
-- `pom.xml`, `testng.xml` and `README.md` are present.
-- `config.properties` contains no credentials.
-- `.gitignore` excludes generated and sensitive files.
-- No SMTP passwords or private authentication keys are committed.
-
-Example Git commands:
-
-```bash
-git init
-git add .
-git status
-git commit -m "Elevance Skills internship - Amazon automation"
-git branch -M main
-git remote add origin https://github.com/<your-user>/ElevanceAmazonAutomation.git
-git push -u origin main
-```
-
-The repository should be publicly accessible if required by the internship submission instructions.
+The project provides practical experience in Java automation testing, Selenium WebDriver, test-case validation, reusable page-object design, and email integration.
 
 ---
 
