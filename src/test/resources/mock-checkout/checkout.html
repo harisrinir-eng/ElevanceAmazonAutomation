@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MOCK Checkout - not Amazon</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; }
+  #banner { background: #b00020; color: #fff; padding: 14px; font-weight: bold; }
+  main { padding: 20px; max-width: 640px; }
+  button { padding: 10px 18px; font-size: 16px; }
+  #confirmation { display: none; border: 2px solid #1b7f3b; padding: 12px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div id="banner">MOCK CHECKOUT - TEST PAGE ONLY. THIS IS NOT AMAZON. NO REAL ORDER OR PAYMENT IS MADE.</div>
+<main>
+  <h2>Order summary</h2>
+  <p>Product: <span id="product"></span></p>
+  <p>Amount payable: <span id="amount"></span></p>
+  <p>Payment method: Mock Pay (no card or bank details are collected)</p>
+  <button id="mock-pay-button" type="button">Pay (MOCK)</button>
+
+  <div id="confirmation">
+    <h2 id="confirmation-status">MOCK ORDER CONFIRMED</h2>
+    <p>Mock order id: <span id="order-id"></span></p>
+    <p>Amount paid (mock): <span id="paid-amount"></span></p>
+    <p>This is a simulated order created by the test framework. It is not an Amazon order.</p>
+  </div>
+</main>
+<script>
+  var params = new URLSearchParams(window.location.search);
+  var amount = params.get('amount') || '';
+  document.getElementById('product').textContent = params.get('product') || '';
+  document.getElementById('amount').textContent = 'INR ' + amount;
+  document.getElementById('mock-pay-button').addEventListener('click', function () {
+    document.getElementById('order-id').textContent = 'MOCK-' + Date.now();
+    document.getElementById('paid-amount').textContent = 'INR ' + amount;
+    document.getElementById('confirmation').style.display = 'block';
+    this.disabled = true;
+  });
+</script>
+</body>
+</html>
